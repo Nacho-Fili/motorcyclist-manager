@@ -10,7 +10,7 @@ const userService = {
     login: username => {
         return axios.post(`${ENDPOINT}/login?username=${username}`)
             .then(({ data }) => {
-                const { username } = data.userLogged
+                const { username, id } = data.userLogged
                 localStorage.setItem('username', username)
                 localStorage.setItem('id', id)
                 return username
