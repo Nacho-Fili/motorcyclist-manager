@@ -1,5 +1,5 @@
 import axios from 'axios'
-const ENDPOINT = 'http://localhost:8000'
+const ENDPOINT = 'https://motorcyclist-manager-api.herokuapp.com'
 
 const userService = {
 
@@ -10,9 +10,10 @@ const userService = {
     login: username => {
         return axios.post(`${ENDPOINT}/login?username=${username}`)
             .then(({ data }) => {
-                localStorage.setItem('username', data.username)
-                localStorage.setItem('id', data.id)
-                return data.username
+                const { username } = data.userLogged
+                localStorage.setItem('username', username)
+                localStorage.setItem('id', id)
+                return username
             })
     },
 

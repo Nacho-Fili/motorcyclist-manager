@@ -2,7 +2,7 @@ import TimeManager from '../model/TimeManager'
 import axios from 'axios'
 import config from '../config'
 
-const ENDPOINT = 'http://localhost:8000'
+const ENDPOINT = 'https://motorcyclist-manager-api.herokuapp.com'
 
 const resourceService = {
     save: async (resourceStatus, {id, username}) => {
@@ -11,7 +11,7 @@ const resourceService = {
         for(const [hour, state] of Object.entries(resourceStatus)){
             try{
                 const { data } = await axios.get(`${ENDPOINT}/hour-is-taken?id=${id}&hour=${hour}`)
-                if(!(data.alreadyExists))
+                if(!(data.isTaken))
                     resourcesToSave[hour] = state
             } catch(err){
                 throw err

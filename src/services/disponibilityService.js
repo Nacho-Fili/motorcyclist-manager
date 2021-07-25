@@ -1,5 +1,5 @@
 import axios from 'axios'
-const ENDPOINT = 'http://localhost:8000'
+const ENDPOINT = 'https://motorcyclist-manager-api.herokuapp.com'
 
 const getDisponibilityByHour = async hour => {
     try {

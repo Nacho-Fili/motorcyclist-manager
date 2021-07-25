@@ -25,7 +25,7 @@ export default function Resources({ hour, onClick, resourceTaken }){
     useEffect(() => {
         const getData = async () =>{
             const { data } = await getDisponibilityByHour(hour)
-            setDisponibility(data.quantity)
+            setDisponibility(data.disponibility)
         }
         getData()
     }, [hour])
