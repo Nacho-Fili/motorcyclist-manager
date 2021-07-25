@@ -1,9 +1,9 @@
 const darkTheme = {
     colors: {
+        background: '#171717',
         base: '#444444',
         font: '#EDEDED',
-        other_1: '#DA0037',
-        other_2: '#171717'
+        other_1: '#DA0037'
     }
 }
 

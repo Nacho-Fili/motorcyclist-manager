@@ -12,7 +12,7 @@ export default function Section({ children }){
         flexDirection: 'column',
         alignItems: 'center',
         padding: '2% 0',
-        backgroundColor: colors.other_2,
+        backgroundColor: colors.background,
         borderTop: `3px solid ${colors.other_1}`
     }
 

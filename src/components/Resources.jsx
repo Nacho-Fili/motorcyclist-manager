@@ -1,7 +1,10 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import ThemeContext from '../context/ThemeContextProvider'
+import { getDisponibilityByHour } from '../services/disponibilityService'
 
 export default function Resources({ hour, onClick, resourceTaken }){
+
+    const [disponibility, setDisponibility] = useState('none')
 
     const { theme } = useContext(ThemeContext)
     const { colors } = theme 
@@ -17,11 +20,21 @@ export default function Resources({ hour, onClick, resourceTaken }){
         backgroundColor: taken ? 'green' : ''
     })
 
-    const disponibility = 8
+    
+
+    useEffect(() => {
+        const getData = async () =>{
+            const { data } = await getDisponibilityByHour(hour)
+            setDisponibility(data.quantity)
+        }
+        getData()
+    }, [hour])
 
     return(
         <div style={ style(resourceIsTaken()) } onClick={ () => onClick(hour) }>
-            {disponibility}
+            { disponibility }
         </div>
     )
+    
+    
 }

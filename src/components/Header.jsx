@@ -1,26 +1,46 @@
-import { useContext }   from 'react'
-import ResourceContext  from '../context/ResourceContext'
-import ThemeContext     from '../context/ThemeContextProvider'
-import useTheme         from '../hooks/useTheme'
+import { useContext, useState }     from 'react'
+import ResourceContext              from '../context/ResourceContext'
+import ThemeContext                 from '../context/ThemeContextProvider'
+import UserContext          from '../context/UserContext'
+import useTheme                     from '../hooks/useTheme'
+import MenuOption                   from './MenuOption'
+import SessionManagerPopup          from './SessionManagerPopup'
 
 export default function Header(){
     
     const { theme } = useContext(ThemeContext)
     const { save } = useContext(ResourceContext)
+    const { userLogged } = useContext(UserContext)
     const { colors } = theme
     const { changeTheme } = useTheme()
+    const [showPopup, setPopup] = useState(false)
 
-    const style = {
+    const style ={
         height: '10vh',
-        backgroundColor: colors.other_2,
+        backgroundColor: colors.background,
         display: 'flex',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
     }
 
     return(
-        <header style={style}>
-            <p style={{margin:0, paddingTop: 20, color: colors.font}} onClick={changeTheme}>CAMBIAR THEME</p>
-            <p style={{margin:0, paddingTop: 20, color: colors.font}} onClick={() => save()}> GUARDAR </p>
-        </header>
+        <>
+            <header style={style}>
+                <MenuOption onClick={changeTheme}>
+                    CAMBIAR THEME
+                </MenuOption>
+                <MenuOption onClick={() => setPopup(true)}>
+                    INICIAR SESION/REGISTRARSE
+                </MenuOption>
+                <MenuOption 
+                    onClick={
+                        () => {
+                            if(userLogged() === null) setPopup(true)
+                            else save()
+                        }}>
+                    GUARDAR 
+                </MenuOption>
+            </header>
+            {showPopup && <SessionManagerPopup setPopup={setPopup}/>}
+        </>
     )
 }

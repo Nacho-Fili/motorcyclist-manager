@@ -1,16 +1,24 @@
 import TimeManager from '../model/TimeManager'
+import axios from 'axios'
 import config from '../config'
 
+const ENDPOINT = 'http://localhost:8000'
+
 const resourceService = {
-    save: resourceStatus => {
+    save: async (resourceStatus, {id, username}) => {
+        const resourcesToSave = {}
+        console.log(id, username)
         for(const [hour, state] of Object.entries(resourceStatus)){
-            console.log(`Guardando horario ${hour}`)
-            
-            state
-            ? localStorage.setItem(hour, state)
-            : localStorage.removeItem(hour)
-             
+            try{
+                const { data } = await axios.get(`${ENDPOINT}/hour-is-taken?id=${id}&hour=${hour}`)
+                if(!(data.alreadyExists))
+                    resourcesToSave[hour] = state
+            } catch(err){
+                throw err
+            }
         }
+        console.log(resourcesToSave)
+        axios.post(`${ENDPOINT}/take-resources?id=${id}`, { resourcesToSave })
     },
     
     initialState: () => {
@@ -25,8 +33,6 @@ const resourceService = {
             currentElementState = localStorage.getItem(e)
             if(currentElementState) initialState[e] = true
         })
-
-        console.log(initialState)
 
         return initialState
     }

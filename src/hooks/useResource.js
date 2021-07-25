@@ -1,5 +1,6 @@
 import { useState }     from 'react'
 import resourceService  from '../services/resourceService'
+import userService      from '../services/usersService'
 
 export default function useResource(){
     const [ resourceTaken, setResourceTaken ] = useState(resourceService.initialState())
@@ -11,7 +12,7 @@ export default function useResource(){
     }
 
     const save = () => {
-        resourceService.save(resourceTaken)
+        resourceService.save(resourceTaken, userService.userLogged())
     }
 
     return({
