@@ -8,9 +8,12 @@ export default function useUser(){
 
     const create = async username => await userService.createUser(username)
 
+    const logout = () => userService.logout()
+
     return({
         userLogged,
         login,
-        create
+        create,
+        logout
     })
 }

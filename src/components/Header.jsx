@@ -1,18 +1,19 @@
 import { useContext, useState }     from 'react'
+import { BiLogIn, BiSave, BiMoon, BiSun, BiUser, BiLogOut }          from 'react-icons/bi'
 import ResourceContext              from '../context/ResourceContext'
 import ThemeContext                 from '../context/ThemeContextProvider'
-import UserContext          from '../context/UserContext'
+import UserContext                  from '../context/UserContext'
 import useTheme                     from '../hooks/useTheme'
 import MenuOption                   from './MenuOption'
 import SessionManagerPopup          from './SessionManagerPopup'
 
 export default function Header(){
     
-    const { theme } = useContext(ThemeContext)
-    const { save } = useContext(ResourceContext)
-    const { userLogged } = useContext(UserContext)
-    const { colors } = theme
-    const { changeTheme } = useTheme()
+    const { theme }             = useContext(ThemeContext)
+    const { save }              = useContext(ResourceContext)
+    const { userLogged, logout }        = useContext(UserContext)
+    const { colors, name }      = theme
+    const { changeTheme }       = useTheme()
     const [showPopup, setPopup] = useState(false)
 
     const style ={
@@ -26,19 +27,26 @@ export default function Header(){
         <>
             <header style={style}>
                 <MenuOption onClick={changeTheme}>
-                    CAMBIAR THEME
-                </MenuOption>
-                <MenuOption onClick={() => setPopup(true)}>
-                    INICIAR SESION/REGISTRARSE
+                    {(name === 'dark') && <BiSun/>}
+                    {(name === 'light') && <BiMoon/>}
                 </MenuOption>
                 <MenuOption 
                     onClick={
                         () => {
                             if(userLogged() === null) setPopup(true)
                             else save()
-                        }}>
-                    GUARDAR 
+                        }
+                    }>
+                    <BiSave/>
                 </MenuOption>
+                <MenuOption onClick={() => setPopup(true)}>
+                    {
+                    !userLogged() 
+                        ? <BiLogIn/>
+                        : <>{userLogged().username} <BiUser/></>
+                    }
+                </MenuOption>
+                {userLogged() && <MenuOption onClick={ logout }> <BiLogOut/> </MenuOption>}
             </header>
             {showPopup && <SessionManagerPopup setPopup={setPopup}/>}
         </>

@@ -10,11 +10,13 @@ export default function UsernameInput({ onChange }){
         outline: 'none',
         backgroundColor: colors.background,
         border: 0,
-        height: '18%',
-        width: '71%',
+        height: 'auto',
+        width: 'auto',
         borderBottom: `2px solid ${colors.other_1}`,
         color: colors.font,
-        paddingLeft: '20px'
+        paddingLeft: '20px',
+        gridColumn: '1/2',
+        gridRow: '2/3'
     }
 
     return(

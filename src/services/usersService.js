@@ -22,6 +22,11 @@ const userService = {
         const id = localStorage.getItem('id')
 
         return (username && id) ? { username, id } : null
+    },
+
+    logout: () => { 
+        localStorage.removeItem('username')
+        localStorage.removeItem('id')
     }
 
 }

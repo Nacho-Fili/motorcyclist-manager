@@ -13,12 +13,13 @@ export default function UserForm({ setPopup }){
     const { login, create } = useContext(UserContext)
 
     const style = {
+        
+        display: 'grid',
         width: '100%',
-        height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column'
+        gridTemplateColumns: '1fr',
+        gridTemplateRows: '10% 25% 1fr',
+        gridColumn: '2/3',
+        gridRow: '2/3'
     }
 
     const handleSubmit = async e => {
@@ -54,8 +55,14 @@ export default function UserForm({ setPopup }){
             <UsernameInput onChange={({target}) => {setUsername(target.value)}}/>
             {errors.username && errors.username}
             <PopupButtonsContainer>
-                <Button onClick ={() => {setOp('login')}} > Iniciar Sesion </Button>
-                <Button onClick ={() => {setOp('register')}}> Registrarse </Button>
+                <Button 
+                    onClick ={() => {setOp('login')}} 
+                    propStyle = {{gridColumn: '1/2', gridRow: '3/4'}}
+                    > Iniciar Sesion </Button>
+                <Button 
+                    onClick ={() => {setOp('register')}}
+                    propStyle ={{gridColumn: '2/3', gridRow: '3/4'}}
+                    > Registrarse </Button>
             </PopupButtonsContainer>
         </form>
     )

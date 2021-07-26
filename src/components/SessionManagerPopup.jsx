@@ -1,6 +1,7 @@
 import { useContext }           from 'react'
 import ThemeContext             from '../context/ThemeContextProvider'
 import UserForm                 from './UserForm'
+import CloseButton              from './CloseButton'
 
 export default function SessionManagerPopup({ setPopup }){
 
@@ -27,15 +28,20 @@ export default function SessionManagerPopup({ setPopup }){
             width: innerPopupWidth+'%',
             height: innerPopupHeight+'%',
             backgroundColor: colors.base,
-            border: `3px solid ${colors.other_1}`
+            border: `3px solid ${colors.other_1}`,
+            display: 'grid',
+            gridTemplateColumns: '1fr 80% 1fr',
+            gridTemplateRows: '20% 1fr'
         }
     }
 
     return(
         <div style={style.popup}>
             <div style={style.innerPopup}>
-                <UserForm setPopup={setPopup}/>
+                <CloseButton setPopup={setPopup}/>
+                <UserForm setPopup={setPopup}/> 
             </div>
         </div>
     )
 }
+

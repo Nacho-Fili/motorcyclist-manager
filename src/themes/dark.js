@@ -4,7 +4,8 @@ const darkTheme = {
         base: '#444444',
         font: '#EDEDED',
         other_1: '#DA0037'
-    }
+    },
+    name: 'dark'
 }
 
 

@@ -2,9 +2,11 @@ export default function PopupButtonsContainer({ children }){
 
     const style = {
         display: 'flex',
-        width: '75%',
-        height: '20%',
-        justifyContent: 'space-between'
+        width: 'auto',
+        height: '30%',
+        justifyContent: 'space-between',
+        gridRow: '3/4',
+        gridColumn: '1/2'
     }
 
     return(
