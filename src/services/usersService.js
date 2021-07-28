@@ -7,14 +7,16 @@ const userService = {
         return axios.post(`${ENDPOINT}/create-user?username=${username}`)
     },
 
-    login: username => {
-        return axios.post(`${ENDPOINT}/login?username=${username}`)
-            .then(({ data }) => {
-                const { username, id } = data.userLogged
-                localStorage.setItem('username', username)
-                localStorage.setItem('id', id)
-                return {id, username}
-            })
+    login: async usernameToLog => {
+        try{
+            const { data } = await axios.post(`${ENDPOINT}/login?username=${usernameToLog}`)
+            const { username, id } = data.userLogged 
+            localStorage.setItem('username', username)
+            localStorage.setItem('id', id)
+            return {id, username}
+        } catch(err){
+            throw err
+        }   
     },
 
     userLogged: () => {

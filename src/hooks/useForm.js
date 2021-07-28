@@ -33,19 +33,27 @@ export default function useForm(){
 
     const checkErrors = username => {
         forbiddenChars.forEach(char => {
-            username.includes(char)
-            && (setErrors({username: usernameErrorText}))
+           
+            console.log(char, username.includes(char))
+            
+            if(username.includes(char)){ 
+                setErrors({username: usernameErrorText})
+                console.log(errors)
+            }
         });
     }
 
     const handleSubmit = async e => {
         e.preventDefault()
-        setErrors({})
+        
         checkErrors(username)
-        
-        if(errors.username) throw 'Username incorrect'
-        
-        return ops[op](username)
+
+        if(Object.keys(errors).length){
+            setErrors({})
+            throw new Error('Username incorrect')
+        } else {
+            return ops[op](username)
+        }
     }
 
     return({
