@@ -1,13 +1,11 @@
-import TimeManager from '../model/TimeManager'
 import axios from 'axios'
-import config from '../config'
 
 const ENDPOINT = 'https://motorcyclist-manager-api.herokuapp.com'
 
 const resourceService = {
     save: async (resourceStatus, {id, username}) => {
         const resourcesToSave = {}
-        console.log(id, username)
+
         for(const [hour, state] of Object.entries(resourceStatus)){
             try{
                 const { data } = await axios.get(`${ENDPOINT}/hour-is-taken?id=${id}&hour=${hour}`)
@@ -17,24 +15,20 @@ const resourceService = {
                 throw err
             }
         }
-        console.log(resourcesToSave)
+
         axios.post(`${ENDPOINT}/take-resources?id=${id}`, { resourcesToSave })
     },
     
-    initialState: () => {
-        const { initialTime, endTime, separator } = config
-        const timeManager = new TimeManager(initialTime, endTime, separator)
-        const times = timeManager.stringifyList() 
+    initialState: async (userLogged, hour) => {
 
-        const initialState = {} 
-        let currentElementState
+        if(!userLogged) return false
+        
+        const { id } = userLogged
+        if(!id) return false
 
-        times.forEach(e => {
-            currentElementState = localStorage.getItem(e)
-            if(currentElementState) initialState[e] = true
-        })
+        const { data } = await axios.get(`${ENDPOINT}/hour-is-taken?id=${id}&hour=${hour}`)
 
-        return initialState
+        return data
     }
 }
 

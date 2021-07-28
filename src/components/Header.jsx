@@ -11,7 +11,7 @@ export default function Header(){
     
     const { theme }             = useContext(ThemeContext)
     const { save }              = useContext(ResourceContext)
-    const { userLogged, logout }        = useContext(UserContext)
+    const { userLogged, logout }= useContext(UserContext)
     const { colors, name }      = theme
     const { changeTheme }       = useTheme()
     const [showPopup, setPopup] = useState(false)
@@ -33,7 +33,7 @@ export default function Header(){
                 <MenuOption 
                     onClick={
                         () => {
-                            if(userLogged() === null) setPopup(true)
+                            if(!userLogged.username) setPopup(true)
                             else save()
                         }
                     }>
@@ -41,12 +41,12 @@ export default function Header(){
                 </MenuOption>
                 <MenuOption onClick={() => setPopup(true)}>
                     {
-                    !userLogged() 
-                        ? <BiLogIn/>
-                        : <>{userLogged().username} <BiUser/></>
+                    userLogged.username 
+                        ? <>{userLogged.username} <BiUser/></>
+                        : <BiLogIn/>
                     }
                 </MenuOption>
-                {userLogged() && <MenuOption onClick={ logout }> <BiLogOut/> </MenuOption>}
+                {userLogged.username && <MenuOption onClick={ logout }> <BiLogOut/> </MenuOption>}
             </header>
             {showPopup && <SessionManagerPopup setPopup={setPopup}/>}
         </>

@@ -5,10 +5,10 @@ const Context = React.createContext({})
 
 export function ResourceContextProvider({ children }){
 
-    const { resourceTaken, takeResource, save } = useResource()
+    const { resourcesTaken, takeResource, save } = useResource()
 
     return(
-        <Context.Provider value={{ resourceTaken, takeResource, save}}>
+        <Context.Provider value={{ resourcesTaken, takeResource, save}}>
             { children }
         </Context.Provider>
     )

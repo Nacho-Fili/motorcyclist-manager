@@ -3,21 +3,25 @@ import resourceService  from '../services/resourceService'
 import userService      from '../services/usersService'
 
 export default function useResource(){
-    const [ resourceTaken, setResourceTaken ] = useState(resourceService.initialState())
+    
+    const initialState = resourceService.initialState(userService.userLogged())
 
-    const takeResource = hour => {
-        const newObject = {...resourceTaken}
-        newObject[hour] = !newObject[hour]
+    const [ resourcesTaken, setResourceTaken ] = useState(initialState)
+
+    const takeResource = (hour, resourceStatus) => {
+        const newObject = {...resourcesTaken}
+        newObject[hour] = resourceStatus
         setResourceTaken(newObject)
     }
 
     const save = () => {
-        resourceService.save(resourceTaken, userService.userLogged())
+        console.log(resourcesTaken)
+        resourceService.save(resourcesTaken, userService.userLogged())
     }
 
     return({
+        resourcesTaken,
         takeResource,
-        resourceTaken,
         save
     })
 }

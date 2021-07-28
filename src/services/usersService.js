@@ -13,7 +13,7 @@ const userService = {
                 const { username, id } = data.userLogged
                 localStorage.setItem('username', username)
                 localStorage.setItem('id', id)
-                return username
+                return {id, username}
             })
     },
 

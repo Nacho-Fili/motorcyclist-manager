@@ -2,11 +2,12 @@ import { useContext } from 'react'
 import ThemeContext from '../context/ThemeContextProvider'
 import Time from './Time'
 import Resources from './Resources'
+import ResourceContext from '../context/ResourceContext'
 
-
-export default function ResourceRow({ children, hour, resourceTaken, takeResource }){
+export default function ResourceRow({ children, hour }){
     
     const { theme } = useContext(ThemeContext)
+    const { resourceTaken, takeResource } = useContext(ResourceContext)
 
     const { colors } = theme
 
@@ -24,7 +25,7 @@ export default function ResourceRow({ children, hour, resourceTaken, takeResourc
             <Time>
                 { children }
             </Time>
-            <Resources hour={ hour } resourceTaken={resourceTaken} onClick={takeResource}/>
+            <Resources resourceTaken={resourceTaken} hour={ hour } onClick={takeResource}/>
         </div>
     )
 }

@@ -6,7 +6,6 @@ import { ResourceContextProvider }  from './context/ResourceContext'
 import  { UserContextProvider }      from './context/UserContext'
 import ResourcesRowContainer        from './components/ResourcesRowContainer'
 
-
 function App() {
   return (
     <div className="App">
