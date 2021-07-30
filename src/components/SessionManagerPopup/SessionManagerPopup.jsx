@@ -1,12 +1,10 @@
 import { useContext }           from 'react'
-import ThemeContext             from '../context/ThemeContextProvider'
-import UserForm                 from './UserForm'
-import CloseButton              from './CloseButton'
+import ThemeContext             from '../../context/ThemeContextProvider'
+import UserForm                 from '../UserForm'
+import CloseButton              from '../CloseButton'
+import './SessionManagerPopup.css'
 
 export default function SessionManagerPopup({ setPopup }){
-
-    const innerPopupWidth = 40
-    const innerPopupHeight = 40
 
     const { theme }     = useContext(ThemeContext)
     const { colors }    = theme
@@ -24,9 +22,6 @@ export default function SessionManagerPopup({ setPopup }){
         },
         innerPopup: {
             position: 'absolute',
-            inset: `${50 - innerPopupHeight/2}% ${50 - innerPopupWidth/2}%`,
-            width: innerPopupWidth+'%',
-            height: innerPopupHeight+'%',
             backgroundColor: colors.base,
             border: `3px solid ${colors.other_1}`,
             display: 'grid',
@@ -37,7 +32,7 @@ export default function SessionManagerPopup({ setPopup }){
 
     return(
         <div style={style.popup}>
-            <div style={style.innerPopup}>
+            <div style={style.innerPopup} className='inner-popup'>
                 <CloseButton setPopup={setPopup}/>
                 <UserForm setPopup={setPopup}/> 
             </div>

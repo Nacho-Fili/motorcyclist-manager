@@ -5,7 +5,7 @@ import ThemeContext                 from '../context/ThemeContextProvider'
 import UserContext                  from '../context/UserContext'
 import useTheme                     from '../hooks/useTheme'
 import MenuOption                   from './MenuOption'
-import SessionManagerPopup          from './SessionManagerPopup'
+import SessionManagerPopup          from './SessionManagerPopup/SessionManagerPopup'
 
 export default function Header(){
     

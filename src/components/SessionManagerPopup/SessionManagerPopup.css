@@ -1,0 +1,12 @@
+.inner-popup{
+    inset: 30% 30%; /* 50% - height/2 | 50% - width/2 */
+    width: 40%;
+    height: 40%;
+}
+
+@media(max-width: 600px){
+    .inner-popup{
+        inset: 30% 10%; /* 50% - height/2 | 50% - width/2 */
+        width: 80%;
+    }
+}
