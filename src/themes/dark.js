@@ -1,3 +1,5 @@
+import { BiSun } from 'react-icons/bi'
+
 const darkTheme = {
     colors: {
         background: '#171717',
@@ -5,7 +7,8 @@ const darkTheme = {
         font: '#EDEDED',
         other_1: '#DA0037'
     },
-    name: 'dark'
+    name: 'dark',
+    opppositeLogo: () => <BiSun />
 }
 
 

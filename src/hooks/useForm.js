@@ -3,10 +3,10 @@ import userContext              from '../context/UserContext'
 
 export default function useForm(){
 
-    const [ op, setOp ]             = useState('login')
-    const [ username, setUsername ] = useState('')
-    const [ errors, setErrors ]     = useState({})
-    const { login, create }         = useContext(userContext)
+    const [ op, setOp ]                             = useState('login')
+    const [ username, setUsername ]                 = useState('')
+    const [ errors, setErrors ]                     = useState({})
+    const { login, create }                         = useContext(userContext)
 
     const forbiddenChars = [ '?', '=', '/', '&', '|' ]
     const usernameErrorText = "El nombre de usuario no puede contener ?, =, /, &, | "
@@ -21,7 +21,8 @@ export default function useForm(){
 
     const register = async username => {
         try {
-           return await create(username)
+            const { data } = await create(username) 
+            return data
         } catch(err) {
             throw err
         }
@@ -57,6 +58,7 @@ export default function useForm(){
     }
 
     return({
+        op,
         setOp,
         setUsername,
         handleSubmit,

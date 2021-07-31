@@ -1,28 +1,35 @@
+import { useState }             from 'react'
 import UsernameInput            from './UsernameInput'
 import PopupButtonsContainer    from './PopupButtonsContainer'
 import Button                   from './Button'
-import useForm from '../hooks/useForm'
+import useForm                  from '../hooks/useForm'
 
 export default function UserForm({ setPopup }){
     
-    const { setOp, setUsername, handleSubmit, errors } = useForm()
-
+    const { op, setOp, setUsername, handleSubmit, errors } = useForm()
+    const [feedbackText, setFeedbackText] = useState('')
+    
     const style = {
         
         display: 'grid',
         width: '100%',
         gridTemplateColumns: '1fr',
-        gridTemplateRows: '10% 25% 1fr',
+        gridTemplateRows: '10% 25% 3fr 1fr',
         gridColumn: '2/3',
         gridRow: '2/3'
     }
 
     return(
-        <form onSubmit={e =>
+        <form onSubmit={e => {
+                    setFeedbackText('Cargando...')
                     handleSubmit(e)
-                        .then(() => setPopup(false))
+                        .then(({username}) => {
+                            if(op === 'register') setFeedbackText(`Usuario ${username} registrado!`)
+                            setTimeout(() => setPopup(false), 5000)
+                        })
                         .catch(err => {throw err}) 
-                    } 
+                    }
+                } 
                 style={style}>
             <UsernameInput onChange={({target}) => {setUsername(target.value)}}/>
             {errors.username && errors.username}
@@ -38,6 +45,7 @@ export default function UserForm({ setPopup }){
                     Registrarse 
                 </Button>
             </PopupButtonsContainer>
+            {feedbackText && <p style={{gridRow: '4/5'}}>{feedbackText}!</p>}
         </form>
     )
 }

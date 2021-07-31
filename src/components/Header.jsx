@@ -6,6 +6,7 @@ import UserContext                  from '../context/UserContext'
 import useTheme                     from '../hooks/useTheme'
 import MenuOption                   from './MenuOption'
 import SessionManagerPopup          from './SessionManagerPopup/SessionManagerPopup'
+import useNavBar                    from '../hooks/useNavBar'
 
 export default function Header(){
     
@@ -15,6 +16,7 @@ export default function Header(){
     const { colors, name }      = theme
     const { changeTheme }       = useTheme()
     const [showPopup, setPopup] = useState(false)
+    const { handleSave }        = useNavBar(setPopup, userLogged, save)
 
     const style ={
         height: '10vh',
@@ -25,18 +27,13 @@ export default function Header(){
 
     return(
         <>
-            <header style={style}>
-                <MenuOption onClick={changeTheme}>
+            <header style={ style }>
+                <MenuOption onClick={ changeTheme }>
                     {(name === 'dark') && <BiSun/>}
                     {(name === 'light') && <BiMoon/>}
                 </MenuOption>
                 <MenuOption 
-                    onClick={
-                        () => {
-                            if(!userLogged.username) setPopup(true)
-                            else save()
-                        }
-                    }>
+                    onClick={ handleSave }>
                     <BiSave/>
                 </MenuOption>
                 <MenuOption onClick={() => setPopup(true)}>
